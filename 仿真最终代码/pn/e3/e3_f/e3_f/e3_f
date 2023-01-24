@@ -1,0 +1,30 @@
+MESH      ^DIAG.FLI
+X.MESH    X.MAX=7.0  H1=0.20
+Y.MESH    Y.MAX=5.0  H1=0.20
+
+REGION    NAME=Silicon  SILICON
+
+ELECTR    NAME=a  X.MIN=2.0 X.MAX=3.0 Y.MAX=0 Y.MIN=0
+ELECTR    NAME=c  X.MIN=4.0 X.MAX=5.0 Y.MAX=0 Y.MIN=0
+
+PROFILE   P-TYPE  N.PEAK=5E15  UNIF
+PROFILE   N-TYPE  N.PEAK=1E20 X.MIN=4.0 X.MAX=5.0 Y.JUNC=0.3 X.CHAR=0.12
+PROFILE   P-TYPE  N.PEAK=1E20 X.MIN=2.0 X.MAX=3.0 Y.JUNC=0.3 X.CHAR=0.12
+
+REGRID  doping log ratio=1
+
+PLOT.2D   GRID  TITLE="E1"  SCALE FILL
+
+MODELS    SRH  impact.i  CONMOB  FLDMOB AUGER
+
+SYMB      NEWTON  CARRIERS=2
+
+method autonr stack=20 itlimit=10
+
+
+SOLVE elec=a vstep=0.03 nstep=100
+
+plot.1d x.axis=v(a) y.axis=i(a)	
+plot.1d x.axis=v(a) y.axis=i(a)	log
+
+

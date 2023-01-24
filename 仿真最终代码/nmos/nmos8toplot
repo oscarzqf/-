@@ -1,0 +1,26 @@
+plot.1d in.file=20
++y.axis=i(d) x.axis=v(d) points color=1 symb=1 title="BVDS"
++right=30
+
+plot.1d in.file=21
++y.axis=i(d) x.axis=v(d) points color=2 symb=2 title="BVDS"
++unchange right=30
+
+plot.1d in.file=22
++y.axis=i(d) x.axis=v(d) points color=3 symb=3 title="BVDS"
++unchange right=30
+
+plot.1d in.file=23
++y.axis=i(d) x.axis=v(d) points color=4 symb=4 title="BVDS"
++unchange right=30
+
+plot.1d in.file=24
++y.axis=i(d) x.axis=v(d) points color=5 symb=5 title="BVDS"
++unchange right=30
+
+label label="20nm" color=1 symb=1
+label label="40nm" color=2 symb=2
+label label="60nm" color=3 symb=3
+label label="80nm" color=4 symb=4
+label label="100nm" color=5 symb=5
+

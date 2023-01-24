@@ -1,0 +1,30 @@
+title NPN transistor
+x.mesh width=12 h1=0.125  
+y.mesh depth=6 h1=0.125 h2=0.4
+
+region name=silicon silicon 
+
+electr name=b x.min=4 x.max=5 top  
+electr name=e x.min=7 x.max=8 top
+electr name=c bottom
+
+profile n-type n.peak=1e15 uniform 
+profile p-type n.peak=6e17 y.peak=.35 y.char=.16 
++x.min=2 x.max=10 
+profile p-type n.peak=4e18 y.peak=0 y.char=.16    
++x.min=2 x.max=10 
+profile n-type n.peak=7e19 y.peak=0 y.char=.17  
++x.min=7 x.max=8 
+profile n-type n.peak=1e19 y.peak=6 y.char=.27   
+ 
+
+regrid doping log ratio=3 smooth=1
+
+plot.2d fill grid title="youhua1" junction  c.elec=2  bound
+
+
+regrid doping log ratio=3 smooth=1
+
+plot.2d fill grid title="youhua2" junction  c.elec=2  bound
+
+plot.1d doping x.start=7.5 x.end=7.5 y.start=0 y.end=6 log point

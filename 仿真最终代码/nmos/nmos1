@@ -1,0 +1,31 @@
+title nmos
+mesh smooth=1
+x.mesh width=4 h1=0.125
+y.mesh loc=-0.04 n=1
+y.mesh loc=0 n=3
+y.mesh depth=3 h1=0.001 h2=0.125
+
+region name=sio 
++x.min=0 x.max=4 y.max=0 oxide
+region name=si 
++x.min=0 x.max=4 y.min=0 y.max=3 silicon
+
+electrode name=d x.min=3 x.max=4 y.max=0 y.min=0
+electrode name=s x.min=0 x.max=1 y.max=0 y.min=0
+electrode name=g x.min=1 x.max=3 y.max=-0.04 y.min=-0.04 
+electrode name=b bottom
+
+profile region=si p-type n.peak=1e15 uniform y.min=0
+profile region=si p-type n.peak=2e16 y.peak=0 y.char=0.2 
+profile region=si n-type n.peak=2e20 y.junc=0.1 
++xy.ratio=0.6 x.min=0 x.max=1
+profile region=si n-type n.peak=2e20 y.junc=0.1
++xy.ratio=0.6 x.min=3 x.max=4
+
+plot.2d grid fill title="original grid"
+regrid doping log ratio=2
+plot.2d grid fill title="regrided grid"
+plot.2d boundary scale junction fill title="the junction profiles"
+
+plot.1d doping x.sta=.5 x.end=.5 y.sta=0 y.end=3 log point
+

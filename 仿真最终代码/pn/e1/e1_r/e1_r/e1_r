@@ -1,0 +1,52 @@
+loop step=5
+assign name=h n.value=(0.2,0.2,0.2,0.1,0.1)
+assign name=na n.value=(14,15,16,17,18)
+assign name=label n.value=1 delta=1
+mesh
+x.mesh width=7 h1=@h
+y.mesh depth=12 h1=@h
+REGION    NAME=1  SILICON
+ELECTR    NAME=a  TOP
+ELECTR    NAME=c  BOTTOM
+
+profile p.type n.peak=10**@na unif region=1
+PROFILE   N-TYPE  N.PEAK=1E20  UNIF  Y.MIN=11.0
+PROFILE   P-TYPE  N.PEAK=1E20  UNIF  Y.MAX=1.0
+
+REGRID  doping log ratio=1
+
+model
+symb newton carr=0
+method autonr stack=20 itlimit=10
+solve
+
+PLOT.2D   GRID  TITLE="E1"  SCALE FILL
+
+$MODELS    SRFMOB2 CONMOB  FLDMOB 
+MODELS SRH  impact.i  CONMOB  FLDMOB AUGER
+
+SYMB      NEWTON  CARRIERS=2
+
+log out.f=@label
+solve
+solve continu elect=c c.vstep=0.1 c.imax=1e-10 c.vmax=350
+extract name=BV now express="max(@V(c);@BV)" initial.V=0
+echo "the BV is "@BV" V"
+
+log close
+l.end
+
+loop step=5
+assign name=label n.value=1 delta=1
+assign name=symbol n.value=1 delta=1
+assign name=colour n.value=1 delta=1
+plot.1d in.f=@label x.axis=v(c) y.axis=i(c) 
++	symb=@symbol point color=@colour	unch
+l.end
+
+label label = "1e14" symbol=1 color=1
+label label = "1e15" symbol=2 color=2
+label label = "1e16" symbol=3 color=3
+label label = "1e17" symbol=4 color=4
+label label = "1e18" symbol=5 color=5
+

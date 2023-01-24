@@ -1,0 +1,21 @@
+h TIF V1.2.1 MEDICI_LOG 2010.03-0  8-Dec-2022 08:18:47 e2
+cd GEN          blnk               blnk          blnk        cart2D    1.00000E+00  0.00000E+00  0.00000E+00
+dset MEDICI_DATA
+di  time                      V(a)                      VA(a)                     I(a)                      + 
+di  IE(a)                     IH(a)                     ID(a)                     Q(a)                      + 
+di  FE(a)                     HE(a)                     V(c)                      VA(c)                     + 
+di  I(c)                      IE(c)                     IH(c)                     ID(c)                     + 
+di  Q(c)                      FE(c)                     HE(c)                     II                        
+# 
+du  seconds                   Volts                     Volts                     Amps/um                   + 
+du  Amps/um                   Amps/um                   Amps/um                   Coul/um                   + 
+du  Amps/um                   Amps/um                   Volts                     Volts                     + 
+du  Amps/um                   Amps/um                   Amps/um                   Amps/um                   + 
+du  Coul/um                   Amps/um                   Amps/um                   Amps/um                   
+# 
+dd      0.000000000000000E+00     0.000000000000000E+00     0.000000000000000E+00     0.000000000000000E+00 + 
+dd      0.000000000000000E+00     0.000000000000000E+00     0.000000000000000E+00     1.590595607272637E-26 + 
+dd      0.000000000000000E+00     0.000000000000000E+00     0.000000000000000E+00     0.000000000000000E+00 + 
+dd      0.000000000000000E+00     0.000000000000000E+00     0.000000000000000E+00     0.000000000000000E+00 + 
+dd     -1.590595607272637E-26     0.000000000000000E+00     0.000000000000000E+00     0.000000000000000E+00 
+# 

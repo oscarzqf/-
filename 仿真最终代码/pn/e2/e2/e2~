@@ -1,0 +1,45 @@
+loop step=10
+assign name=h n.value=0.2
+assign name=pd n.value=(0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5)
+assign name=label n.value=1 delta=1
+mesh
+x.mesh width=7 h1=@h
+y.mesh depth=12 h1=@h
+REGION    NAME=1  SILICON
+ELECTR    NAME=a  TOP
+ELECTR    NAME=c  BOTTOM
+
+profile p.type n.peak=1E10 unif region=1
+PROFILE   N-TYPE  N.PEAK=1E20  UNIF  Y.MIN=10.5
+PROFILE   P-TYPE  N.PEAK=1E20  UNIF  Y.MAX=@pd
+
+REGRID  doping log ratio=1
+
+model
+symb newton carr=0
+method autonr stack=20 itlimit=10
+solve
+
+PLOT.2D   GRID  TITLE="E1"  SCALE FILL
+
+$MODELS    SRFMOB2 CONMOB  FLDMOB
+MODELS    SRH  impact.i  CONMOB  FLDMOB AUGER 
+
+SYMB      NEWTON  CARRIERS=2
+
+log out.f=@label
+SOLVE
+SOLVE continu electrode=c c.vstep=4 c.imax=4e-6 c.vmax=500
+
+extract name=BV now express="max(@V(c);@BV)" initial.V=0
+echo "the BV is "@BV" V"
+
+log close
+l.end
+
+loop step=10
+assign name=label n.value=1 delta=1
+$plot.1d in.f=@label x.axis=v(c) y.axis=i(c)	unch
+plot.1d in.f=@label x.axis=v(c) y.axis=i(c)	log unch
+
+l.end

@@ -1,0 +1,49 @@
+
+mesh 
+x.mesh width=12 h1=0.125 
+y.mesh depth=6 h1=0.125 h2=0.4
+
+region name=silicon silicon 
+
+electr name=b x.min=4 x.max=5 y.max=0  
+electr name=e x.min=7 x.max=8 y.max=0
+electr name=c bottom
+
+profile n-type n.peak=1e15 uniform region=silicon
+profile p-type n.peak=6e17 y.peak=.35 y.char=.16 
++x.min=2 x.max=10 
+profile p-type n.peak=4e18 y.peak=0 y.char=.16    
++x.min=4 x.max=5
+profile n-type n.peak=7e19 y.peak=0 y.char=.17  
++x.min=7 x.max=8 
+profile n-type n.peak=1e19 y.peak=6 y.char=.27
+
+
+
+models conmob consrh auger bgn
+symb carriers=0
+method iccg damped
+solve
+model conmob consrh fldmob srfmob auger impact.i
+symb newton carriers=2  
+contact name=b current
+
+solve 
+solve i(b)=1e-12
+solve v(c)=0 elec=c vstep=1 nstep=5
+plot.1d y.axis=i(c) x.axis=v(c) points color=1 symb=1 title="npn-iv11" top=3e-4	
+solve i(b)=1e-11
+solve i(b)=1e-10
+solve i(b)=1e-9
+solve i(b)=1e-8
+solve i(b)=1e-7
+
+loop step=10
+assign name=lines n.value=1 delta=1
+solve i(b)=@lines*1e-6
+log out.file=@lines
+solve v(c)=0 elec=c vstep=1 nstep=5 
+plot.1d in.file=@lines y.axis=i(c) x.axis=v(c) points symb=1 
++top=1e-4 unch color=@lines
+l.end
+
